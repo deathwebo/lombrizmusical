@@ -17,4 +17,7 @@ def track(track_id):
         track = [track for track in tracks if track['id'] == track_id]
     return template('templates/track', track=track[0])
 
-run(host='localhost', port=8080, debug=True)
+if os.environ.get('APP_LOCATION') == 'dokku':
+    run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+else:
+    run(host='localhost', port=8080, debug=True)
